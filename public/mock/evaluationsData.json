@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "device_id": 328,
+        "description": "Rerum maxime nostrum unde blanditiis itaque quia. Adipisci voluptatem adipisci omnis sunt sapiente dolores tempore. Et tempora est accusamus adipisci id corporis. Dolorum amet consequatur aliquam.",
+        "evaluation": 4,
+        "improvements": "Maiores perferendis aut quas veritatis inventore omnis. Optio quisquam veniam sequi asperiores. Architecto quisquam ut a consequatur corporis molestias. Voluptates rem minus non excepturi ut eum exercitationem.\n\nSimilique est facere velit nihil et veritatis. Vel commodi dolorum quaerat voluptas fuga. Non id qui aliquid. Aut assumenda est impedit sint et et deleniti rerum.",
+        "created_at": "2025-03-18T00:47:02.000000Z",
+        "updated_at": "2025-03-18T00:47:02.000000Z",
+        "platform": "ANDROID"
+    },
+    {
+        "id": 2,
+        "device_id": 117,
+        "description": "Rerum nihil voluptatibus velit adipisci aspernatur et nulla. Iste occaecati maiores velit alias. Sunt est velit aut animi totam.",
+        "evaluation": 3,
+        "improvements": "Nemo magni expedita nemo vel. Sunt iure quis et vel. Et et totam impedit et quas earum. Ipsum veritatis officia omnis omnis distinctio.\n\nCulpa et est culpa voluptas voluptatem dicta placeat. Beatae repudiandae iste ut impedit eveniet inventore inventore. Est vero sit rem non.",
+        "created_at": "2025-03-18T00:47:02.000000Z",
+        "updated_at": "2025-03-18T00:47:02.000000Z",
+        "platform": "IOS"
+    },
+    {
+        "id": 3,
+        "device_id": 206,
+        "description": "Harum nostrum eaque soluta dolores pariatur sunt sunt. Molestiae molestias voluptatem amet eius. Aperiam nobis est omnis consectetur asperiores eos. Rerum voluptatem consequatur quo beatae quia.",
+        "evaluation": 1,
+        "improvements": "Velit error velit maiores non qui non magnam. Amet fuga fugit tempora. Sapiente assumenda nihil eius.\n\nEst autem laboriosam temporibus quaerat cupiditate qui non. Perspiciatis delectus blanditiis sit rem. Est et soluta veniam provident. Aperiam ducimus ipsa enim hic quaerat. Eaque iusto sunt corrupti ullam rerum tempore enim.",
+        "created_at": "2025-03-18T00:47:02.000000Z",
+        "updated_at": "2025-03-18T00:47:02.000000Z",
+        "platform": "ANDROID"
+    },
+    {
+        "id": 4,
+        "device_id": 414,
+        "description": "Totam ea qui vitae voluptatem eum molestiae. Alias sit iste consectetur voluptates. Omnis aut consectetur voluptates harum consequatur alias.",
+        "evaluation": 2,
+        "improvements": "Qui eligendi repellendus vero consequuntur officiis nam. Ut dolor quisquam accusamus iste in. Nemo aut distinctio eos porro consequatur aut.\n\nId alias nesciunt dicta quo beatae voluptas. Et voluptate magnam non omnis. A eveniet aut et ad voluptatem eos. Assumenda qui dolor nostrum enim qui ullam.",
+        "created_at": "2025-03-18T00:47:02.000000Z",
+        "updated_at": "2025-03-18T00:47:02.000000Z",
+        "platform": "IOS"
+    }
+]

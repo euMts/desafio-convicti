@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@theme {
+  --font-nunito: "Nunito", sans-serif;
+  --font-nunito-sans: "Nunito Sans", sans-serif;
+  --color-my-purple: hsl(241, 97%, 65%);
+  --color-background: hsl(0, 0%, 97%);
+
+  --animate-bounce: bounce-loop 0.7s ease-in-out infinite alternate;
+
+  @keyframes bounce-loop {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.1);
+    }
+  }
+}
+
+body {
+  margin: 0;
+  background-color: #f8f8f8;
+  font-family: var(--font-nunito-sans);
+}
+
+.custom-radio {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #333;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f3f3f3;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.custom-radio:checked {
+  border-color: #7f43ff;
+  background-color: white;
+}
+
+.custom-radio:checked::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background-color: #7f43ff;
+  border-radius: 50%;
+  display: block;
+}

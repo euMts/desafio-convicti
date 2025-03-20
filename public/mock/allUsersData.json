@@ -1,0 +1,187 @@
+[
+    {
+        "id": 1,
+        "name": "Junior Luiz",
+        "email": "junior@convicti.com.br",
+        "email_verified_at": null,
+        "active": true,
+        "created_at": "2025-03-18T00:46:56.000000Z",
+        "updated_at": "2025-03-18T00:46:56.000000Z",
+        "profile_id": 1,
+        "profile": {
+            "id": 1,
+            "name": "Admin",
+            "created_at": "2025-03-18T00:46:55.000000Z",
+            "updated_at": "2025-03-18T00:46:55.000000Z",
+            "total_users": 1,
+            "permissions": [
+                {
+                    "id": 1,
+                    "name": "Downloads",
+                    "created_at": "2025-03-18T00:46:55.000000Z",
+                    "updated_at": "2025-03-18T00:46:55.000000Z",
+                    "pivot": {
+                        "profile_id": 1,
+                        "permission_id": 1
+                    }
+                },
+                {
+                    "id": 2,
+                    "name": "Avalia\u00e7\u00f5es",
+                    "created_at": "2025-03-18T00:46:55.000000Z",
+                    "updated_at": "2025-03-18T00:46:55.000000Z",
+                    "pivot": {
+                        "profile_id": 1,
+                        "permission_id": 2
+                    }
+                },
+                {
+                    "id": 3,
+                    "name": "Erros",
+                    "created_at": "2025-03-18T00:46:55.000000Z",
+                    "updated_at": "2025-03-18T00:46:55.000000Z",
+                    "pivot": {
+                        "profile_id": 1,
+                        "permission_id": 3
+                    }
+                },
+                {
+                    "id": 4,
+                    "name": "Feedbacks",
+                    "created_at": "2025-03-18T00:46:55.000000Z",
+                    "updated_at": "2025-03-18T00:46:55.000000Z",
+                    "pivot": {
+                        "profile_id": 1,
+                        "permission_id": 4
+                    }
+                },
+                {
+                    "id": 5,
+                    "name": "Novas Funcionalidades",
+                    "created_at": "2025-03-18T00:46:55.000000Z",
+                    "updated_at": "2025-03-18T00:46:55.000000Z",
+                    "pivot": {
+                        "profile_id": 1,
+                        "permission_id": 5
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "id": 2,
+        "name": "Jo\u00e3o Lucas",
+        "email": "joao.lucas@convicti.com.br",
+        "email_verified_at": null,
+        "active": true,
+        "created_at": "2025-03-18T00:46:56.000000Z",
+        "updated_at": "2025-03-18T00:46:56.000000Z",
+        "profile_id": 2,
+        "profile": {
+            "id": 2,
+            "name": "Desenvolvedor",
+            "created_at": "2025-03-18T00:46:55.000000Z",
+            "updated_at": "2025-03-18T00:46:55.000000Z",
+            "total_users": 1,
+            "permissions": [
+                {
+                    "id": 1,
+                    "name": "Downloads",
+                    "created_at": "2025-03-18T00:46:55.000000Z",
+                    "updated_at": "2025-03-18T00:46:55.000000Z",
+                    "pivot": {
+                        "profile_id": 2,
+                        "permission_id": 1
+                    }
+                },
+                {
+                    "id": 2,
+                    "name": "Avalia\u00e7\u00f5es",
+                    "created_at": "2025-03-18T00:46:55.000000Z",
+                    "updated_at": "2025-03-18T00:46:55.000000Z",
+                    "pivot": {
+                        "profile_id": 2,
+                        "permission_id": 2
+                    }
+                },
+                {
+                    "id": 3,
+                    "name": "Erros",
+                    "created_at": "2025-03-18T00:46:55.000000Z",
+                    "updated_at": "2025-03-18T00:46:55.000000Z",
+                    "pivot": {
+                        "profile_id": 2,
+                        "permission_id": 3
+                    }
+                },
+                {
+                    "id": 5,
+                    "name": "Novas Funcionalidades",
+                    "created_at": "2025-03-18T00:46:55.000000Z",
+                    "updated_at": "2025-03-18T00:46:55.000000Z",
+                    "pivot": {
+                        "profile_id": 2,
+                        "permission_id": 5
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "id": 3,
+        "name": "C\u00edntia Lopes",
+        "email": "cintia.lopes@convicti.com.br",
+        "email_verified_at": null,
+        "active": true,
+        "created_at": "2025-03-18T00:46:56.000000Z",
+        "updated_at": "2025-03-18T00:46:56.000000Z",
+        "profile_id": 3,
+        "profile": {
+            "id": 3,
+            "name": "Recursos Humanos",
+            "created_at": "2025-03-18T00:46:55.000000Z",
+            "updated_at": "2025-03-18T00:46:55.000000Z",
+            "total_users": 1,
+            "permissions": []
+        }
+    },
+    {
+        "id": 9,
+        "name": "Matheus inativo | TESTE",
+        "email": "matheusetp@hotmail.com",
+        "email_verified_at": null,
+        "active": false,
+        "created_at": "2025-03-20T04:39:45.000000Z",
+        "updated_at": "2025-03-20T04:39:45.000000Z",
+        "profile_id": 8,
+        "profile": {
+            "id": 8,
+            "name": "Perfil novo | TESTE",
+            "created_at": "2025-03-20T04:35:15.000000Z",
+            "updated_at": "2025-03-20T04:35:15.000000Z",
+            "total_users": 1,
+            "permissions": [
+                {
+                    "id": 1,
+                    "name": "Downloads",
+                    "created_at": "2025-03-18T00:46:55.000000Z",
+                    "updated_at": "2025-03-18T00:46:55.000000Z",
+                    "pivot": {
+                        "profile_id": 8,
+                        "permission_id": 1
+                    }
+                },
+                {
+                    "id": 4,
+                    "name": "Feedbacks",
+                    "created_at": "2025-03-18T00:46:55.000000Z",
+                    "updated_at": "2025-03-18T00:46:55.000000Z",
+                    "pivot": {
+                        "profile_id": 8,
+                        "permission_id": 4
+                    }
+                }
+            ]
+        }
+    }
+]

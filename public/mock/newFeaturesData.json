@@ -1,0 +1,34 @@
+[
+    {
+        "id": 1,
+        "name": "Temporibus omnis et dolorem quis aliquid.",
+        "is_new": 1,
+        "created_at": "2025-03-18T00:47:04.000000Z",
+        "updated_at": "2025-03-18T00:47:04.000000Z",
+        "total_usage": 106
+    },
+    {
+        "id": 2,
+        "name": "Cumque qui quibusdam similique dolore expedita nulla eum.",
+        "is_new": 1,
+        "created_at": "2025-03-18T00:47:04.000000Z",
+        "updated_at": "2025-03-18T00:47:04.000000Z",
+        "total_usage": 87
+    },
+    {
+        "id": 3,
+        "name": "Dolores sit dolorem eaque amet.",
+        "is_new": 1,
+        "created_at": "2025-03-18T00:47:04.000000Z",
+        "updated_at": "2025-03-18T00:47:04.000000Z",
+        "total_usage": 120
+    },
+    {
+        "id": 4,
+        "name": "Laudantium eius illo ut inventore pariatur occaecati nesciunt.",
+        "is_new": 1,
+        "created_at": "2025-03-18T00:47:04.000000Z",
+        "updated_at": "2025-03-18T00:47:04.000000Z",
+        "total_usage": 90
+    }
+]
