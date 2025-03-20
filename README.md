@@ -143,10 +143,12 @@ Este repositório é referente ao frontend. Para testar e instalar você precisa
 
 Nesta seção você verá as principais telas do sistema por meio de vídeos e capturas de tela.
 
-**Vídeo**
-[![](https://markdown-videos-api.jorgenkh.no/youtube/C4O8dzr4POk)](https://youtu.be/C4O8dzr4POk)
+**Vídeo**<br>
+<a href="https://www.youtube.com/watch?v=C4O8dzr4POk" target="_blank" rel="noopener noreferrer">
+  Caso o vídeo não esteja disponível, aperte aqui!
+</a>
 
-[Caso o vídeo não esteja disponível, aperte aqui!](https://github.com/euMts/desafio-convicti/tree/main/assets/preview.mp4)
+https://github.com/user-attachments/assets/57ae15be-02fc-42aa-a899-ceb9d8996644
 
 <div align="center">
 
