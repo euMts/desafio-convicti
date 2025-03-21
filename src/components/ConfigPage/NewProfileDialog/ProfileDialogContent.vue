@@ -2,25 +2,47 @@
 import { ref } from "vue";
 import BaseInput from "../../BaseInput.vue";
 import BaseTypography from "../../BaseTypography.vue";
-import NewProfileItem from "./NewProfileItem.vue";
-import type { NewProfileData } from "@/types/Profile";
+import type { FormatedProfiles, NewProfileData } from "@/types/Profile";
 import { addNewProfile } from "@/services/profiles";
 import type { AxiosError } from "axios";
+import ProfileItem from "./ProfileItem.vue";
 
 const props = defineProps<{
   closeDialogEvent: () => void;
-  token: string;
-  fetchProfilesData: () => void;
+  token?: string;
+  fetchProfilesData?: () => void;
+  currentEditingProfile?: FormatedProfiles;
+  type: "new" | "edit";
 }>();
 
-const newProfileName = ref("");
+const newProfileName = ref(props.type === "edit" ? props.currentEditingProfile!.name : "");
 const errorMessage = ref("");
 const isLoading = ref(false);
-const isDownloadsSelected = ref(false);
-const isEvaluationsSelected = ref(false);
-const isErrorssSelected = ref(false);
-const isFeedbacksSelected = ref(false);
-const isNewFeaturesSelected = ref(false);
+const isDownloadsSelected = ref(
+  props.type === "edit"
+    ? props.currentEditingProfile!.permissions.some((permission) => permission.id === 1)
+    : false
+);
+const isEvaluationsSelected = ref(
+  props.type === "edit"
+    ? props.currentEditingProfile!.permissions.some((permission) => permission.id === 2)
+    : false
+);
+const isErrorssSelected = ref(
+  props.type === "edit"
+    ? props.currentEditingProfile!.permissions.some((permission) => permission.id === 3)
+    : false
+);
+const isFeedbacksSelected = ref(
+  props.type === "edit"
+    ? props.currentEditingProfile!.permissions.some((permission) => permission.id === 4)
+    : false
+);
+const isNewFeaturesSelected = ref(
+  props.type === "edit"
+    ? props.currentEditingProfile!.permissions.some((permission) => permission.id === 5)
+    : false
+);
 
 const toggleDownloadsSelected = () => {
   isDownloadsSelected.value = !isDownloadsSelected.value;
@@ -56,7 +78,7 @@ const handleCreateProfile = async () => {
 
     isLoading.value = true;
     try {
-      const response = await addNewProfile(newProfileData, props.token);
+      const response = await addNewProfile(newProfileData, props.token!);
 
       if (response.status !== 201) {
         errorMessage.value = "Algo deu errado.";
@@ -64,11 +86,11 @@ const handleCreateProfile = async () => {
       }
 
       props.closeDialogEvent();
-      props.fetchProfilesData();
+      props.fetchProfilesData!();
     } catch (error) {
       const axiosError = error as AxiosError;
       if (axiosError.response) {
-        errorMessage.value = "Este email já foi utilizado.";
+        errorMessage.value = "Este nome já foi utilizado.";
       } else {
         errorMessage.value = "Algo deu errado.";
       }
@@ -91,31 +113,31 @@ const handleCreateProfile = async () => {
     />
     <BaseTypography size="body-md" color="secondary" class="opacity-50">Dashboard</BaseTypography>
     <div class="flex flex-col w-full gap-3">
-      <NewProfileItem
+      <ProfileItem
         :isDisabled="isLoading"
         :onClick="() => toggleDownloadsSelected()"
         name="Downloads"
         :isSelected="isDownloadsSelected"
       />
-      <NewProfileItem
+      <ProfileItem
         :isDisabled="isLoading"
         :onClick="() => toggleEvaluationsSelected()"
         name="Avaliações"
         :isSelected="isEvaluationsSelected"
       />
-      <NewProfileItem
+      <ProfileItem
         :isDisabled="isLoading"
         :onClick="() => toggleErrorsSelected()"
         name="Erros"
         :isSelected="isErrorssSelected"
       />
-      <NewProfileItem
+      <ProfileItem
         :isDisabled="isLoading"
         :onClick="() => toggleFeedbacksSelected()"
         name="Feedbacks"
         :isSelected="isFeedbacksSelected"
       />
-      <NewProfileItem
+      <ProfileItem
         :isDisabled="isLoading"
         :onClick="() => toggleNewFeaturesSelected()"
         name="Novas Funcionalidades"
@@ -132,12 +154,12 @@ const handleCreateProfile = async () => {
         >
       </button>
       <button
-        :disabled="isLoading"
+        :disabled="isLoading || props.type === 'edit'"
         @click="handleCreateProfile"
-        class="flex w-full bg-[#1400FF]/20 rounded-md py-2 cursor-pointer hover:bg-[#1400FF]/15 transition-all duration-200 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none"
+        class="flex w-full bg-[#1400FF]/20 rounded-md py-2 cursor-pointer hover:bg-[#1400FF]/15 transition-all duration-200 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-auto"
       >
         <BaseTypography class="w-full text-[#7F43FF]" size="body-lg" weight="semibold">{{
-          isLoading ? "Aguarde..." : "Adicionar"
+          props.type === "new" ? (isLoading ? "Aguarde..." : "Adicionar") : "Indisponível"
         }}</BaseTypography>
       </button>
     </div>

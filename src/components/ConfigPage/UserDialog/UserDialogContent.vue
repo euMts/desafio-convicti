@@ -2,26 +2,39 @@
 import { ref } from "vue";
 import BaseInput from "../../BaseInput.vue";
 import BaseTypography from "../../BaseTypography.vue";
-import NewUserItem from "./NewUserItem.vue";
+import UserItem from "./UserItem.vue";
 import type { SimpleProfileData } from "@/types/Profile";
 import BaseLoadingSpinner from "@/components/BaseLoadingSpinner.vue";
-import type { NewUserData } from "@/types/User";
+import type { FormatedUser, NewUserData } from "@/types/User";
 import { addNewUser } from "@/services/user";
 import type { AxiosError } from "axios";
 
 const props = defineProps<{
   closeDialogEvent: () => void;
-  token: string;
-  fetchProfilesData: () => void;
-  fetchUsersData: () => void;
-  selectOptions: SimpleProfileData[] | null | undefined;
+  token?: string;
+  fetchProfilesData?: () => void;
+  fetchUsersData?: () => void;
+  selectOptions?: SimpleProfileData[] | null | undefined;
+  currentEditingUser?: FormatedUser;
+  type: "new" | "edit";
 }>();
 
-const newUserName = ref("");
-const newUserEmail = ref("");
+const newUserName = ref(props.type === "edit" ? props.currentEditingUser!.name : "");
+const newUserEmail = ref(props.type === "edit" ? props.currentEditingUser!.email : "");
+const newUserProfileId = ref(props.type === "edit" ? props.currentEditingUser!.profileId : null);
+const newUserProfileName = ref(
+  props.type === "edit" ? props.currentEditingUser!.profileName : null
+);
 const errorMessage = ref("");
 const isLoading = ref(false);
-const selectedOption = ref<SimpleProfileData | null>(null);
+const selectedOption = ref<SimpleProfileData | null>(
+  props.type === "edit"
+    ? {
+        id: newUserProfileId.value!,
+        name: newUserProfileName.value!,
+      }
+    : null
+);
 
 const handleCreateUser = async () => {
   errorMessage.value = "";
@@ -40,7 +53,7 @@ const handleCreateUser = async () => {
 
     isLoading.value = true;
     try {
-      const response = await addNewUser(newUserData, props.token);
+      const response = await addNewUser(newUserData, props.token!);
 
       if (response.status !== 201) {
         errorMessage.value = "Algo deu errado.";
@@ -48,8 +61,8 @@ const handleCreateUser = async () => {
       }
 
       props.closeDialogEvent();
-      props.fetchProfilesData();
-      props.fetchUsersData();
+      props.fetchProfilesData!();
+      props.fetchUsersData!();
     } catch (error) {
       const axiosError = error as AxiosError;
       if (axiosError.response) {
@@ -90,7 +103,7 @@ const handleCreateUser = async () => {
           >Carregando...</BaseTypography
         >
       </div>
-      <NewUserItem
+      <UserItem
         v-if="props.selectOptions"
         v-model:selectedOption="selectedOption"
         :selectOptions="props.selectOptions"
@@ -106,12 +119,12 @@ const handleCreateUser = async () => {
         >
       </button>
       <button
-        :disabled="isLoading"
+        :disabled="isLoading || props.type === 'edit'"
         @click="handleCreateUser"
-        class="flex w-full bg-[#1400FF]/20 rounded-md py-2 cursor-pointer hover:bg-[#1400FF]/15 transition-all duration-200 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none"
+        class="flex w-full bg-[#1400FF]/20 rounded-md py-2 cursor-pointer hover:bg-[#1400FF]/15 transition-all duration-200 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-auto"
       >
         <BaseTypography class="w-full text-[#7F43FF]" size="body-lg" weight="semibold">{{
-          isLoading ? "Aguarde..." : "Adicionar"
+          props.type === "new" ? (isLoading ? "Aguarde..." : "Adicionar") : "Indisponível"
         }}</BaseTypography>
       </button>
     </div>

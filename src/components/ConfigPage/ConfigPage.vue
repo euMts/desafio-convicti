@@ -9,8 +9,8 @@ import { getProfilesData, simplifyProfile } from "@/services/profiles";
 import type { FormatedUser } from "@/types/User";
 import { getAllUsersData } from "@/services/user";
 import BaseDialog from "../BaseDialog.vue";
-import NewProfileDialogContent from "./NewProfileDialog/NewProfileDialogContent.vue";
-import NewUserDialogContent from "./NewUserDialog/NewUserDialogContent.vue";
+import UserDialogContent from "./UserDialog/UserDialogContent.vue";
+import ProfileDialogContent from "./NewProfileDialog/ProfileDialogContent.vue";
 
 interface DashboardProps {
   configButtonActive?: boolean;
@@ -85,10 +85,11 @@ onMounted(() => {
         title="Novo perfil"
       >
         <template #default="{ closeDialogEvent }">
-          <NewProfileDialogContent
+          <ProfileDialogContent
             :closeDialogEvent="closeDialogEvent"
             :token="token"
             :fetchProfilesData="fetchProfilesData"
+            type="new"
           />
         </template>
       </BaseDialog>
@@ -102,6 +103,9 @@ onMounted(() => {
         v-if="profiles && !profilesDataIsLoading"
         :columns="profilesTableColumns"
         :data="profiles || []"
+        tableType="profiles"
+        :token="token"
+        :fetchProfilesData="fetchProfilesData"
       />
     </div>
 
@@ -122,12 +126,13 @@ onMounted(() => {
         title="Novo Usuário"
       >
         <template #default="{ closeDialogEvent }">
-          <NewUserDialogContent
+          <UserDialogContent
             :closeDialogEvent="closeDialogEvent"
             :token="token"
             :fetchProfilesData="fetchProfilesData"
             :fetchUsersData="fetchUsersData"
             :selectOptions="simplifyProfile(profiles!)"
+            type="new"
           />
         </template>
       </BaseDialog>
@@ -141,6 +146,11 @@ onMounted(() => {
         v-if="users && !usersDataIsLoading"
         :columns="usersTableColumns"
         :data="users || []"
+        tableType="users"
+        :token="token"
+        :fetchProfilesData="fetchProfilesData"
+        :fetchUsersData="fetchUsersData"
+        :selectOptions="simplifyProfile(profiles!)"
       />
     </div>
   </div>

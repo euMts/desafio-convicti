@@ -22,8 +22,10 @@ export interface UserData {
 }
 
 export interface FormatedUser {
+  id: number;
   name: string;
   email: string;
+  profileId: number;
   profileName: string;
   active: bool;
 }

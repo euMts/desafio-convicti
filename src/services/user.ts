@@ -61,8 +61,10 @@ export const getAllUsersData = async (token: string): Promise<{ data: FormatedUs
 
 const formatUserData = (rawUser: UserData): FormatedUser => {
   return {
+    id: rawUser.id,
     name: rawUser.name,
     email: rawUser.email,
+    profileId: rawUser.profile_id,
     profileName: rawUser.profile.name,
     active: rawUser.active,
   };
