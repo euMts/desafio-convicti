@@ -52,7 +52,10 @@ O desenvolvimento deste projeto teve início em 17/03/2025, logo após o recebim
 - - Avaliações
 - - Erros
 - - Novas funcionalidades
-- Recursos Humanos: Acesso às avaliações dos usuários.<br><br>
+- Recursos Humanos: Acesso às avaliações dos usuários.<br>
+> ⚠️ **IMPORTANTE** ⚠️
+> Apenas usuários com perfil **ADMIN** (com todas as permissões ativadas) podem acessar a tela de Configurações. Usuários sem esse nível de permissão **não** terão acesso e o botão de navegação para essa tela **NÃO** será exibido.
+<br>
 
 - Gerenciamento de Perfis:
 - - CRUD de Perfis (Nome, lista de permissões)<br><br>
