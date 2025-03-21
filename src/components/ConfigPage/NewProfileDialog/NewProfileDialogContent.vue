@@ -5,6 +5,7 @@ import BaseTypography from "../../BaseTypography.vue";
 import NewProfileItem from "./NewProfileItem.vue";
 import type { NewProfileData } from "@/types/Profile";
 import { addNewProfile } from "@/services/profiles";
+import type { AxiosError } from "axios";
 
 const props = defineProps<{
   closeDialogEvent: () => void;
@@ -65,8 +66,12 @@ const handleCreateProfile = async () => {
       props.closeDialogEvent();
       props.fetchProfilesData();
     } catch (error) {
-      console.log(error);
-      errorMessage.value = "Algo deu errado.";
+      const axiosError = error as AxiosError;
+      if (axiosError.response) {
+        errorMessage.value = "Este email já foi utilizado.";
+      } else {
+        errorMessage.value = "Algo deu errado.";
+      }
     } finally {
       isLoading.value = false;
     }

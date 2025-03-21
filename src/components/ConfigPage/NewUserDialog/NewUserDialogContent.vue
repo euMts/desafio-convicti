@@ -7,6 +7,7 @@ import type { SimpleProfileData } from "@/types/Profile";
 import BaseLoadingSpinner from "@/components/BaseLoadingSpinner.vue";
 import type { NewUserData } from "@/types/User";
 import { addNewUser } from "@/services/user";
+import type { AxiosError } from "axios";
 
 const props = defineProps<{
   closeDialogEvent: () => void;
@@ -50,8 +51,12 @@ const handleCreateUser = async () => {
       props.fetchProfilesData();
       props.fetchUsersData();
     } catch (error) {
-      console.log(error);
-      errorMessage.value = "Algo deu errado.";
+      const axiosError = error as AxiosError;
+      if (axiosError.response) {
+        errorMessage.value = "Este email já foi utilizado.";
+      } else {
+        errorMessage.value = "Algo deu errado.";
+      }
     } finally {
       isLoading.value = false;
     }

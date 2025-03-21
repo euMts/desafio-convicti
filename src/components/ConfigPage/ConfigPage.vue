@@ -105,7 +105,7 @@ onMounted(() => {
       />
     </div>
 
-    <div :class="['p-6 bg-white rounded-lg shadow-md']">
+    <div :class="['p-6 bg-white rounded-lg shadow-md mb-16']">
       <div class="flex w-full justify-between">
         <BaseTypography size="heading-md" weight="semibold">Usuários</BaseTypography>
         <button
