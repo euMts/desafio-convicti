@@ -85,7 +85,7 @@ const setCurrentPage = (page: "dashboard" | "config") => {
     <div
       v-if="!isLoading && userData"
       id="content"
-      class="flex flex-col w-full h-screen ml-[250px] bg-background px-14 py-12"
+      class="flex flex-col w-full h-screen ml-0 lg:ml-[250px] mt-14 lg:mt-10 bg-background px-10 lg:px-14 py-12"
     >
       <BaseTypography as="h1" color="primary" size="heading-xl" weight="bold" class="mb-5">{{
         currentPage === "dashboard" ? "Estatísticas" : "Configurações"

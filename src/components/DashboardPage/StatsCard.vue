@@ -20,7 +20,7 @@ const props = defineProps<StatsCardProps>();
   <div
     :class="[
       'flex flex-col w-full bg-white rounded-md px-6 py-3',
-      props.title === 'Downloads' ?'max-w-[264px]': 'max-w-[670px]',
+      props.title === 'Downloads' ?'max-w-full lg:max-w-[264px]': 'max-w-full',
     ]"
   >
     <div class="flex justify-between items-center">

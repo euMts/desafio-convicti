@@ -19,7 +19,7 @@ const props = defineProps<NewProfileItemProps>();
       @click="props.onClick"
       class="cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-auto"
     >
-      <img src="/svg/toggle.svg" :class="['size-8', !isSelected && 'rotate-180']" />
+      <img src="/svg/toggle.svg" :class="['size-8 min-w-8', !isSelected && 'rotate-180']" />
     </button>
   </div>
 </template>

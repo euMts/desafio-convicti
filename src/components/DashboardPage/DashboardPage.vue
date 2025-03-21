@@ -138,7 +138,7 @@ onUnmounted(() => {
 
 <template>
   <div class="flex flex-col w-full gap-5">
-    <div class="flex w-full justify-between gap-5">
+    <div class="flex w-full justify-between gap-5 flex-wrap lg:flex-nowrap">
       <StatsCard
         v-if="userCanSeeDownloads"
         title="Downloads"

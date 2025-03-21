@@ -52,11 +52,12 @@ O desenvolvimento deste projeto teve início em 17/03/2025, logo após o recebim
 - - Avaliações
 - - Erros
 - - Novas funcionalidades
-- Recursos Humanos: Acesso às avaliações dos usuários.<br>
+- Recursos Humanos: Acesso às avaliações dos usuários.<br><br>
 
   > ⚠️ **IMPORTANTE** ⚠️
   > Apenas usuários com perfil **ADMIN** (com todas as permissões ativadas) podem acessar a tela de Configurações. Usuários sem esse nível de permissão **não** terão acesso e o botão de navegação para essa tela **NÃO** será exibido.
-  > <br>
+
+  <br>
 
 - Gerenciamento de Perfis:
 - - CRUD de Perfis (Nome, lista de permissões)<br><br>
@@ -64,8 +65,9 @@ O desenvolvimento deste projeto teve início em 17/03/2025, logo após o recebim
 - Gerenciamento de Usuários
 - - CRUD de Usuários (Nome, email, perfil)
 
-**Adicionadas Extras**
+**Adicionais Extras**
 
+- Aplicação **100% responsiva** com suporte completo para dispositivos móveis e desktops.
 - Componentes reutilizáveis para otimizar a manutenção e escalabilidade do projeto.
 - Estilos reutilizáveis, garantindo consistência visual e facilitando ajustes globais.
 
