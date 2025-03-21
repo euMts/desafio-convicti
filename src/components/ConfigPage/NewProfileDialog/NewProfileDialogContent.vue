@@ -38,7 +38,6 @@ const toggleNewFeaturesSelected = () => {
 };
 
 const handleCreateProfile = async () => {
-  console.log("s");
   errorMessage.value = "";
   if (newProfileName.value.length <= 0) {
     errorMessage.value = "Preencha o nome.";
