@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Permission } from "@/types/Profile";
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, onUnmounted } from "vue";
 import StatsCard from "./StatsCard.vue";
 import BaseTypography from "../BaseTypography.vue";
 import type { EvaluationCount, FirstEvaluationResponse } from "@/types/Evaluation";
@@ -13,11 +13,13 @@ import BaseLoadingSpinner from "../BaseLoadingSpinner.vue";
 import type { FirstNewFeatureResponse } from "@/types/NewFeature";
 import { getFirstNewFeaturesData } from "@/services/newFeatures";
 import BaseTable from "../BaseTable.vue";
+import axios from "axios";
 
 interface DashboardProps {
   permissions: Permission[];
   configButtonActive?: boolean;
   token: string;
+  isActive: boolean;
 }
 
 const props = defineProps<DashboardProps>();
@@ -43,6 +45,8 @@ const newFeaturesTableColumns = [
   { key: "usage_percentage", label: "Taxa De Uso" },
 ];
 
+let abortController: AbortController | null = null;
+
 const firstEvaluations = ref<FirstEvaluationResponse | null>(null);
 const evaluationsCount = ref<EvaluationCount | null>(null);
 const firstDownloads = ref<FirstDownloadResponse | null>(null);
@@ -51,59 +55,84 @@ const firstErrors = ref<FirstErrorResponse | null>(null);
 const errorsCount = ref<ErrorCount | null>(null);
 const firstNewFeatures = ref<FirstNewFeatureResponse | null>(null);
 
-const fetchEvaluationsData = async () => {
+const fetchEvaluationsData = async (signal: AbortSignal) => {
+  if (!props.isActive) return;
   try {
-    firstEvaluations.value = await getFirstEvaluationsData(props.token);
-    evaluationsCount.value = await getEvaluationsCountByPlatform(props.token);
+    firstEvaluations.value = await getFirstEvaluationsData(props.token, signal) as FirstEvaluationResponse;
+    evaluationsCount.value = await getEvaluationsCountByPlatform(props.token, signal) as EvaluationCount;
   } catch (error) {
-    console.error("Erro ao carregar dados das avaliações:", error);
-  } finally {
+    if (axios.isCancel(error)) {
+      console.log("Requisição de avaliações cancelada.");
+    } else {
+      console.error("Erro ao carregar dados das avaliações:", error);
+    }
   }
 };
 
-const fetchDownloadsData = async () => {
+const fetchDownloadsData = async (signal: AbortSignal) => {
+  if (!props.isActive) return;
   try {
-    firstDownloads.value = await getFirstDownloadsData(props.token);
-    downloadsCount.value = await getDownloadsCountByPlatform(props.token);
+    firstDownloads.value = (await getFirstDownloadsData(
+      props.token,
+      signal
+    )) as FirstDownloadResponse;
+    downloadsCount.value = (await getDownloadsCountByPlatform(
+      props.token,
+      signal
+    )) as DownloadCount;
   } catch (error) {
-    console.error("Erro ao carregar dados dos downloads:", error);
-  } finally {
+    if (axios.isCancel(error)) {
+      console.log("Requisição de downloads cancelada.");
+    } else {
+      console.error("Erro ao carregar dados dos downloads:", error);
+    }
   }
 };
 
-const fetchErrorsData = async () => {
+const fetchErrorsData = async (signal: AbortSignal) => {
+  if (!props.isActive) return;
   try {
-    firstErrors.value = await getFirstErrorsData(props.token);
-    errorsCount.value = await getErrorssCountByPlatform(props.token);
+    firstErrors.value = await getFirstErrorsData(props.token, signal) as FirstErrorResponse;
+    errorsCount.value = await getErrorssCountByPlatform(props.token, signal) as ErrorCount;
   } catch (error) {
-    console.error("Erro ao carregar dados dos erros:", error);
-  } finally {
+    if (axios.isCancel(error)) {
+      console.log("Requisição de erros cancelada.");
+    } else {
+      console.error("Erro ao carregar dados dos erros:", error);
+    }
   }
 };
 
-const fetchNewFeaturesData = async () => {
+const fetchNewFeaturesData = async (signal: AbortSignal) => {
+  if (!props.isActive) return;
   try {
-    firstNewFeatures.value = await getFirstNewFeaturesData(props.token);
+    firstNewFeatures.value = await getFirstNewFeaturesData(props.token, signal) as FirstNewFeatureResponse;
   } catch (error) {
-    console.error("Erro ao carregar dados das novas funcionalidades:", error);
-  } finally {
+    if (axios.isCancel(error)) {
+      console.log("Requisição de novas funcionalidades cancelada.");
+    } else {
+      console.error("Erro ao carregar dados das novas funcionalidades:", error);
+    }
   }
 };
 
-onMounted(() => {
-  if (userCanSeeDownloads.value) {
-    fetchDownloadsData();
-  }
-  // evaluations === feedbacks
-  if (userCanSeeEvaluations.value || userCanSeeFeedbacks.value) {
-    fetchEvaluationsData();
-  }
-  if (userCanSeeErrors.value) {
-    fetchErrorsData();
-  }
-  if (userCanSeeNewFeatures.value) {
-    fetchNewFeaturesData();
-  }
+const fetchData = () => {
+  if (!props.isActive) return;
+
+  abortController?.abort(); // cancel previous requests before creating a new
+  abortController = new AbortController();
+  const signal = abortController.signal;
+
+  if (userCanSeeDownloads.value) fetchDownloadsData(signal);
+  if (userCanSeeEvaluations.value || userCanSeeFeedbacks.value) fetchEvaluationsData(signal);
+  if (userCanSeeErrors.value) fetchErrorsData(signal);
+  if (userCanSeeNewFeatures.value) fetchNewFeaturesData(signal);
+};
+
+onMounted(fetchData);
+
+onUnmounted(() => {
+  abortController?.abort();
 });
 </script>
 

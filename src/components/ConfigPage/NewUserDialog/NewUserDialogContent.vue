@@ -12,6 +12,7 @@ const props = defineProps<{
   closeDialogEvent: () => void;
   token: string;
   fetchProfilesData: () => void;
+  fetchUsersData: () => void;
   selectOptions: SimpleProfileData[] | null | undefined;
 }>();
 
@@ -47,6 +48,7 @@ const handleCreateUser = async () => {
 
       props.closeDialogEvent();
       props.fetchProfilesData();
+      props.fetchUsersData();
     } catch (error) {
       console.log(error);
       errorMessage.value = "Algo deu errado.";

@@ -4,7 +4,10 @@ import axios from "axios";
 const BASE_API_URL = import.meta.env.VITE_BASE_API_URL;
 const isDev = import.meta.env.VITE_ENV === "dev";
 
-export const getFirstErrorsData = async (token: string): Promise<FirstErrorResponse> => {
+export const getFirstErrorsData = async (
+  token: string,
+  signal?: AbortSignal
+): Promise<FirstErrorResponse | undefined> => {
   if (!token) {
     throw new Error("Invalid token");
   }
@@ -20,6 +23,7 @@ export const getFirstErrorsData = async (token: string): Promise<FirstErrorRespo
 
     const response = await axios.get(`${BASE_API_URL}/errors`, {
       headers: { Authorization: `Bearer ${token}` },
+      signal,
     });
 
     if (response.status !== 200) {
@@ -32,12 +36,19 @@ export const getFirstErrorsData = async (token: string): Promise<FirstErrorRespo
       total: data.total,
     };
   } catch (error) {
-    console.error("Erro ao buscar os primeiros erros:", error);
-    throw error;
+    if (axios.isCancel(error)) {
+      console.log("Requisição de primeiros erros cancelada.");
+    } else {
+      console.error("Erro ao buscar os primeiros erros:", error);
+      throw error;
+    }
   }
 };
 
-export const getErrorssCountByPlatform = async (token: string): Promise<ErrorCount> => {
+export const getErrorssCountByPlatform = async (
+  token: string,
+  signal?: AbortSignal
+): Promise<ErrorCount | undefined> => {
   if (!token) {
     throw new Error("Invalid token");
   }
@@ -57,6 +68,7 @@ export const getErrorssCountByPlatform = async (token: string): Promise<ErrorCou
       const response = await axios.get(`${BASE_API_URL}/errors`, {
         headers: { Authorization: `Bearer ${token}` },
         params: { page: currentPage },
+        signal,
       });
 
       if (response.status !== 200) {
@@ -76,7 +88,11 @@ export const getErrorssCountByPlatform = async (token: string): Promise<ErrorCou
 
     return { totalAndroid, totalIos };
   } catch (error) {
-    console.error("Erro ao buscar contagem de erros:", error);
-    throw error;
+    if (axios.isCancel(error)) {
+      console.log("Requisição de contagem de erros cancelada.");
+    } else {
+      console.error("Erro ao buscar contagem de erros:", error);
+      throw error;
+    }
   }
 };

@@ -4,7 +4,10 @@ import axios from "axios";
 const BASE_API_URL = import.meta.env.VITE_BASE_API_URL;
 const isDev = import.meta.env.VITE_ENV === "dev";
 
-export const getFirstDownloadsData = async (token: string): Promise<FirstDownloadResponse> => {
+export const getFirstDownloadsData = async (
+  token: string,
+  signal?: AbortSignal
+): Promise<FirstDownloadResponse | undefined> => {
   if (!token) {
     throw new Error("Invalid token");
   }
@@ -20,6 +23,7 @@ export const getFirstDownloadsData = async (token: string): Promise<FirstDownloa
 
     const response = await axios.get(`${BASE_API_URL}/downloads`, {
       headers: { Authorization: `Bearer ${token}` },
+      signal,
     });
 
     if (response.status !== 200) {
@@ -32,12 +36,19 @@ export const getFirstDownloadsData = async (token: string): Promise<FirstDownloa
       total: data.total,
     };
   } catch (error) {
-    console.error("Erro ao buscar os primeiros downloads:", error);
-    throw error;
+    if (axios.isCancel(error)) {
+      console.log("Requisição de primeiros downloads cancelada.");
+    } else {
+      console.error("Erro ao buscar os primeiros downloads:", error);
+      throw error;
+    }
   }
 };
 
-export const getDownloadsCountByPlatform = async (token: string): Promise<DownloadCount> => {
+export const getDownloadsCountByPlatform = async (
+  token: string,
+  signal?: AbortSignal
+): Promise<DownloadCount | undefined> => {
   if (!token) {
     throw new Error("Invalid token");
   }
@@ -58,6 +69,7 @@ export const getDownloadsCountByPlatform = async (token: string): Promise<Downlo
       const response = await axios.get(`${BASE_API_URL}/downloads`, {
         headers: { Authorization: `Bearer ${token}` },
         params: { page: currentPage },
+        signal,
       });
 
       if (response.status !== 200) {
@@ -77,7 +89,11 @@ export const getDownloadsCountByPlatform = async (token: string): Promise<Downlo
 
     return { totalAndroid, totalIos };
   } catch (error) {
-    console.error("Erro ao buscar contagem de downloads:", error);
-    throw error;
+    if (axios.isCancel(error)) {
+      console.log("Requisição de contagem de downloads cancelada.");
+    } else {
+      console.error("Erro ao buscar contagem de downloads:", error);
+      throw error;
+    }
   }
 };

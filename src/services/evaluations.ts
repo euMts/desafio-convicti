@@ -5,7 +5,10 @@ import axios from "axios";
 const BASE_API_URL = import.meta.env.VITE_BASE_API_URL;
 const isDev = import.meta.env.VITE_ENV === "dev";
 
-export const getFirstEvaluationsData = async (token: string): Promise<FirstEvaluationResponse> => {
+export const getFirstEvaluationsData = async (
+  token: string,
+  signal?: AbortSignal
+): Promise<FirstEvaluationResponse | undefined> => {
   if (!token) {
     throw new Error("Invalid token");
   }
@@ -18,7 +21,9 @@ export const getFirstEvaluationsData = async (token: string): Promise<FirstEvalu
         const response = await fetch("/mock/evaluationsData.json");
 
         if (!response.ok) {
-          throw new Error(`Erro ao carregar JSON evaluationsData: ${response.status} ${response.statusText}`);
+          throw new Error(
+            `Erro ao carregar JSON evaluationsData: ${response.status} ${response.statusText}`
+          );
         }
 
         const sample: Evaluation[] = await response.json();
@@ -35,6 +40,7 @@ export const getFirstEvaluationsData = async (token: string): Promise<FirstEvalu
     const response = await axios.get(`${BASE_API_URL}/evaluations`, {
       headers: { Authorization: `Bearer ${token}` },
       params: { page: 1 },
+      signal,
     });
 
     if (response.status !== 200) {
@@ -47,12 +53,19 @@ export const getFirstEvaluationsData = async (token: string): Promise<FirstEvalu
       evaluations: data.data.map(formatEvaluation).slice(0, 4),
     };
   } catch (error) {
-    console.error("Erro ao buscar as primeiras avaliações:", error);
-    throw error;
+    if (axios.isCancel(error)) {
+      console.log("Requisição das primeiras avaliações cancelada.");
+    } else {
+      console.error("Erro ao buscar as primeiras avaliações:", error);
+      throw error;
+    }
   }
 };
 
-export const getEvaluationsCountByPlatform = async (token: string): Promise<EvaluationCount> => {
+export const getEvaluationsCountByPlatform = async (
+  token: string,
+  signal?: AbortSignal
+): Promise<EvaluationCount | undefined> => {
   if (!token) {
     throw new Error("Invalid token");
   }
@@ -74,6 +87,7 @@ export const getEvaluationsCountByPlatform = async (token: string): Promise<Eval
       const response = await axios.get(`${BASE_API_URL}/evaluations`, {
         headers: { Authorization: `Bearer ${token}` },
         params: { page: currentPage },
+        signal,
       });
 
       if (response.status !== 200) {
@@ -98,8 +112,12 @@ export const getEvaluationsCountByPlatform = async (token: string): Promise<Eval
 
     return { totalAndroid, totalIos, average };
   } catch (error) {
-    console.error("Erro ao buscar contagem de avaliações:", error);
-    throw error;
+    if (axios.isCancel(error)) {
+      console.log("Requisição da contagem de avaliações cancelada.");
+    } else {
+      console.error("Erro ao buscar contagem de avaliações:", error);
+      throw error;
+    }
   }
 };
 

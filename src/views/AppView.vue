@@ -94,6 +94,7 @@ const setCurrentPage = (page: "dashboard" | "config") => {
         v-if="currentPage === 'dashboard'"
         :token="token!"
         :permissions="userData!.profile.permissions"
+        :isActive="currentPage === 'dashboard'"
       />
       <ConfigPage
         v-if="currentPage === 'config'"

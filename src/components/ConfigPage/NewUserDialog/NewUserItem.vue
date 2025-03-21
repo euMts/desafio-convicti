@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import BaseTypography from "@/components/BaseTypography.vue";
 import type { SimpleProfileData } from "@/types/Profile";
-import { defineProps } from "vue";
 
 interface NewUserItemProps {
   selectOptions: SimpleProfileData[];

@@ -4,7 +4,10 @@ import axios from "axios";
 const BASE_API_URL = import.meta.env.VITE_BASE_API_URL;
 const isDev = import.meta.env.VITE_ENV === "dev";
 
-export const getFirstNewFeaturesData = async (token: string): Promise<FirstNewFeatureResponse> => {
+export const getFirstNewFeaturesData = async (
+  token: string,
+  signal?: AbortSignal
+): Promise<FirstNewFeatureResponse | undefined> => {
   if (!token) {
     throw new Error("Invalid token");
   }
@@ -33,6 +36,7 @@ export const getFirstNewFeaturesData = async (token: string): Promise<FirstNewFe
     const response = await axios.get(`${BASE_API_URL}/features`, {
       headers: { Authorization: `Bearer ${token}` },
       params: { is_new: 1 },
+      signal,
     });
 
     if (response.status !== 200) {
@@ -45,8 +49,12 @@ export const getFirstNewFeaturesData = async (token: string): Promise<FirstNewFe
       newFeatures: calculateUsagePercentage(data.data),
     };
   } catch (error) {
-    console.error("Erro ao buscar as primeiras novas funcionalidades:", error);
-    throw error;
+    if (axios.isCancel(error)) {
+      console.log("Requisição de primeiras novas funcionalidades cancelada.");
+    } else {
+      console.error("Erro ao buscar as primeiras novas funcionalidades:", error);
+      throw error;
+    }
   }
 };
 

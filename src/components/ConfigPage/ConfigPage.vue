@@ -64,10 +64,6 @@ onMounted(() => {
   fetchProfilesData();
   fetchUsersData();
 });
-
-const handleCustomEvent = () => {
-  console.log("O botão dentro de NewProfileDialogContent foi clicado!");
-};
 </script>
 
 <template>
@@ -87,7 +83,6 @@ const handleCustomEvent = () => {
         :isOpen="isNewProfileDialogOpen"
         @close="isNewProfileDialogOpen = false"
         title="Novo perfil"
-        @customEvent="handleCustomEvent"
       >
         <template #default="{ closeDialogEvent }">
           <NewProfileDialogContent
@@ -125,13 +120,13 @@ const handleCustomEvent = () => {
         :isOpen="isNewUserDialogOpen"
         @close="isNewUserDialogOpen = false"
         title="Novo Usuário"
-        @customEvent="handleCustomEvent"
       >
         <template #default="{ closeDialogEvent }">
           <NewUserDialogContent
             :closeDialogEvent="closeDialogEvent"
             :token="token"
-            :fetchProfilesData="fetchUsersData"
+            :fetchProfilesData="fetchProfilesData"
+            :fetchUsersData="fetchUsersData"
             :selectOptions="simplifyProfile(profiles!)"
           />
         </template>
