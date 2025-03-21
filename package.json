@@ -1,6 +1,6 @@
 {
-  "name": "test-stats-front",
-  "version": "0.0.0",
+  "name": "desafio-convicti",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
